@@ -65,16 +65,8 @@ export const navMenuConfig: NavMenuConfig = {
           image: "/images/examples/documentation.jpg",
         },
         {
-          title: "Anime List",
-          href: "/animes",
-          description:
-            "Fetch anime content from an graphql endpoint. Tabs component.",
-          image: "/images/examples/animes.jpg",
-          launched: true,
-        },
-        {
           title: "Blog DB",
-          href: "/blog-db",
+          href: "#",
           description:
             "Blog built using Astro DB. With categories, views & likes.",
           image: "/images/examples/blog-db.jpg",
@@ -89,7 +81,7 @@ export const navMenuConfig: NavMenuConfig = {
         },
         {
           title: "Authentification",
-          href: "/auth",
+          href: "/",
           description: "Implement an authentification using Astro DB & Clerk",
           image: "/images/examples/clerk.png",
           disabled: false,

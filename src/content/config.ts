@@ -12,7 +12,7 @@ const blog = defineCollection({
 });
 
 const docs = defineCollection({
-  type: "content", // Add this line
+  type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -22,19 +22,19 @@ const docs = defineCollection({
 });
 
 const guides = defineCollection({
-  type: "content", // Add this line
+  type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string(),
     published: z.boolean().default(true),
     featured: z.boolean().default(false),
-    pubDate: z.date(),
     author: z.string().optional(),
+    pubDate: z.coerce.date(), // Change this line
   }),
 });
 
 const releases = defineCollection({
-  type: "content", // Add this line
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),

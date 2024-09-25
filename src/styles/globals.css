@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -38,7 +38,7 @@
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
-    --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, .08);
+    --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, 0.08);
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -79,7 +79,7 @@
     --ring: 0 0% 83.1%;
 
     --radius: 0.5rem;
-    --ds-shadow-border: 0 0 0 1px hsla(0, 0%, 100%, .145);
+    --ds-shadow-border: 0 0 0 1px hsla(0, 0%, 100%, 0.145);
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -90,8 +90,8 @@
 
 @layer base {
   @font-face {
-    font-family: 'CalSans Semibold';
-    src: url('/fonts/calsans-semibold.woff2') format('woff2');
+    font-family: "CalSans Semibold";
+    src: url("/fonts/calsans-semibold.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -140,7 +140,7 @@
     @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4;
   }
 
-  .callout>* {
+  .callout > * {
     @apply my-0 !important;
   }
 
@@ -149,7 +149,7 @@
   }
 
   /* MdxComponent: For <code></code> with no parent <pre></pre> */
-  :not(pre)>code {
+  :not(pre) > code {
     @apply relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm bg-background text-foreground;
   }
 }
@@ -163,21 +163,23 @@
 }
 
 .bg_release_version {
-  background: linear-gradient(25deg,
-      #3a084e,
-      #5b0e81,
-      #bc4c9b,
-      #df7f4f) !important;
+  background: linear-gradient(
+    25deg,
+    #3a084e,
+    #5b0e81,
+    #bc4c9b,
+    #df7f4f
+  ) !important;
 }
 
 /* Vercel card style */
 .card_border {
-  box-shadow: var(--ds-shadow-border), 0 4px 6px rgba(0, 0, 0, .04);
-  transition: box-shadow .15s ease;
+  box-shadow: var(--ds-shadow-border), 0 4px 6px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.15s ease;
 }
 
 .card_border:hover {
-  box-shadow: var(--ds-shadow-border), 0 6px 14px rgba(0, 0, 0, .08);
+  box-shadow: var(--ds-shadow-border), 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
 .dark .card_border:hover {
@@ -192,11 +194,7 @@
 }
 
 [data-radix-scroll-area-viewport]::-webkit-scrollbar {
-  display: none
-}
-
-.anime-grid {
-  @apply grid content-start [--column-gap:12px] sm:[--column-gap:14px] md:[--column-gap:18px] gap-x-[--column-gap] gap-y-8 md:gap-y-10 [--min-column-width:150px] [--max-column-count:7] [--total-gap-width:calc((var(--max-column-count)-1)*var(--column-gap))] [--max-column-width:calc((100%-var(--total-gap-width))/var(--max-column-count))] grid-cols-[repeat(auto-fill,minmax(max(var(--min-column-width),var(--max-column-width)),1fr))]
+  display: none;
 }
 
 @layer base {

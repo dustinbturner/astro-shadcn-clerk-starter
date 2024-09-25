@@ -65,14 +65,6 @@ export type SubscriptionPlan = {
   stripePriceId: string;
 };
 
-// Animes types
-export type Airing = {
-  id: number;
-  episode: number;
-  airingAt: number;
-  media: Media;
-};
-
 export type Media = {
   id: number;
   title: Title;
@@ -100,4 +92,4 @@ export type InfoLdg = {
   image: string;
   description: string;
   list: InfoList[];
-}
+};

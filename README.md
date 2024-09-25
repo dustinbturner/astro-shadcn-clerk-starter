@@ -69,7 +69,6 @@ _Not implemented yet :_
 - [x] ~Build **changelog pages**~
 - [x] ~Build **waitlist with React Hook Form**~
 - [x] ~Build **newsletter with Simple Form**~
-- [x] ~Build **animes pages** (graphql)~
 - [ ] Build **blog with Astro DB** (work on it)
 - [ ] Build **ecommerce pages** (work on it)
 - [ ] Build **auth/dashboard pages**
