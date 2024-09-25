@@ -17,7 +17,7 @@ const guides = await getGuides();
     {
       guides?.length ? (
         <div class="grid gap-4 md:grid-cols-2 md:gap-6">
-          {guides.map((guide: { slug: string }) => (
+          {guides.map((guide) => (
             <GuideCard {...guide} />
           ))}
         </div>

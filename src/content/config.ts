@@ -44,7 +44,7 @@ const releases = defineCollection({
         src: image(),
         alt: z.string(),
       }),
-      date: z.date(),
+      date: z.coerce.date(),
     }),
 });
 

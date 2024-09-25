@@ -61,7 +61,7 @@ const toc = await getTableOfContents(guide.body);
           <Content components={MdxComponents} />
 
           <hr class="my-4 md:my-6" />
-          <DocsPager slug={guide.slug} />
+          <DocsPager slug={guide.slug as any} />
         </div>
         <div class="hidden text-sm xl:block">
           <div class="sticky top-18 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">

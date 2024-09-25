@@ -5,12 +5,14 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  post: CollectionEntry<'blog'>;
+  post: CollectionEntry<"blog">;
+  url: string;
+  category: string;
 }
 
-const { post } = Astro.props;
+const { post, url, category } = Astro.props as Props;
 const { slug } = post;
-const { title, description, pubDate, cover, category } = post.data;
+const { title, description, pubDate, cover } = post.data;
 ---
 
 <article class="group space-y-4">

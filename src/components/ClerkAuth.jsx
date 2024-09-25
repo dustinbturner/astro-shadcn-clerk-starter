@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   SignedIn,
   SignedOut,
@@ -10,6 +10,16 @@ import { Button } from "@/components/ui/button";
 import ClerkProviderWrapper from "./ClerkProviderWrapper";
 
 export default function ClerkAuth() {
+  const userButtonAppearance = useMemo(
+    () => ({
+      elements: {
+        avatarBox: "w-8 h-8 rounded-full",
+        userButtonAvatarBox: "w-8 h-8 rounded-full",
+      },
+    }),
+    []
+  );
+
   return (
     <ClerkProviderWrapper>
       <SignedOut>
@@ -25,14 +35,7 @@ export default function ClerkAuth() {
         </SignUpButton>
       </SignedOut>
       <SignedIn>
-        <UserButton
-          appearance={{
-            elements: {
-              avatarBox: "w-8 h-8 rounded-full",
-              userButtonAvatarBox: "w-8 h-8 rounded-full",
-            },
-          }}
-        />
+        <UserButton appearance={userButtonAppearance} />
       </SignedIn>
     </ClerkProviderWrapper>
   );

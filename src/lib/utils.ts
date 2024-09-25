@@ -15,3 +15,8 @@ export function formatDate(date: Date | string): string {
     day: "numeric",
   });
 }
+
+// Add this function
+export function capitalizer(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
