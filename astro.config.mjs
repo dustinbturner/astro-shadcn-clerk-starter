@@ -13,7 +13,7 @@ import clerk from "@clerk/astro";
 export default defineConfig({
   site: "https://astro-nomy.vercel.app",
   studio: {
-    enabled: false,
+    enabled: true,
   },
   integrations: [
     react({
