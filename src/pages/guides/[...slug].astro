@@ -1,30 +1,74 @@
 ---
 import { MdxComponents } from "@/components/content/mdx-components";
-import GuidePostLayout from "@/layouts/guide-post.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+
+import DocsPageHeader from "@/components/page-header.astro";
+import DocsPager from "@/components/pager.astro";
+import { DashboardTableOfContents } from "@/components/toc";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { docsConfig } from "@/config/docs";
+import DocsLayout from "@/layouts/docs-layout.astro";
+import { getTableOfContents } from "@/lib/toc";
+import { Icon } from "astro-icon/components";
+import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const guides = await getCollection("guides");
-  return guides.map((guide) => ({
+  console.log("Fetched guides in getStaticPaths:", guides); // Debug log
+  return guides.map((guide: CollectionEntry<'guides'>) => ({
     params: { slug: guide.slug },
-    props: guide,
+    props: { slug: guide.slug },
   }));
 }
 
-type Props = CollectionEntry<"guides">;
+const { slug } = Astro.params;
+console.log("Slug:", slug); // Debug log
 
-const guide = Astro.props;
-const slug = Astro.params.slug;
-const { Content } = await guide.render();
-
-if (!slug || !guide) {
-  return new Response(null, {
-    status: 404,
-    statusText: "Not found",
-  });
+let guide;
+try {
+  guide = await getEntry('guides', slug);
+  console.log("Fetched guide:", guide); // Debug log
+} catch (error) {
+  console.error("Error fetching guide:", error);
 }
+
+if (!guide) {
+  console.log("Guide not found, redirecting to 404"); // Debug log
+  return Astro.redirect('/404');
+}
+
+const { Content } = await guide.render();
+const toc = await getTableOfContents(guide.body);
 ---
 
-<GuidePostLayout {...guide}>
-  <Content components={MdxComponents} />
-</GuidePostLayout>
+<DocsLayout title={guide.data.title} description={guide.data.description}>
+  <div class="container flex-1">
+    <div class="flex-1 md:grid md:grid-cols-[220px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-10">
+      <aside class="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
+        <ScrollArea className="h-full py-6 pr-6 lg:py-8" client:load>
+
+        </ScrollArea>
+      </aside>
+      <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+        <div class="mx-auto w-full min-w-0">
+          <div class="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
+            <a href="/guides" class="truncate hover:text-foreground">Guides</a>
+            <Icon name="lucide:chevron-right" class="size-4" />
+            <div class="font-medium text-foreground">{guide.data.title}</div>
+          </div>
+
+          <DocsPageHeader heading={guide.data.title} text={guide.data.description} />
+
+          <Content components={MdxComponents} />
+
+          <hr class="my-4 md:my-6" />
+          <DocsPager slug={guide.slug} />
+        </div>
+        <div class="hidden text-sm xl:block">
+          <div class="sticky top-18 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-10">
+            <DashboardTableOfContents toc={toc} client:load />
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</DocsLayout>

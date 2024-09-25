@@ -65,6 +65,13 @@ export const navMenuConfig: NavMenuConfig = {
           image: "/images/examples/documentation.jpg",
         },
         {
+          title: "Guides",
+          href: "/guides",
+          description:
+            "A Markdown/MDX guides site built using Content Collections.",
+          image: "/images/examples/documentation.jpg",
+        },
+        {
           title: "Blog DB",
           href: "#",
           description:
