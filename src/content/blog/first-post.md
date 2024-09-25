@@ -1,7 +1,7 @@
 ---
 title: "First Post"
 description: "Embark on a web development adventure with our inaugural post, diving deep into industry insights and emerging trends."
-pubDate: "Jul 08 2022"
+pubDate: "2022-07-08"
 cover: "/images/blog/placeholder-3.jpg"
 category: "design"
 ---

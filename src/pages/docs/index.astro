@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from "@/layouts/docs-layout.astro";
+import type { CollectionEntry } from 'astro:content';
+const docs = await getCollection('docs');
+console.log("Fetched docs:", docs); // Debug log
+
+if (docs.length > 0) {
+  const firstDoc = docs[0];
+  console.log("Redirecting to:", `/docs/${firstDoc.slug}`); // Debug log
+  return Astro.redirect(`/docs/${firstDoc.slug}`);
+}
+---
+
+<DocsLayout title="Documentation" description="Browse our documentation">
+  <h1>Documentation</h1>
+  {docs.length === 0 ? (
+    <p>No documentation found.</p>
+  ) : (
+    <ul>
+      {docs.map((doc: CollectionEntry<'docs'>) => (
+        <li><a href={`/docs/${doc.slug}`}>{doc.data.title}</a></li>
+      ))}
+    </ul>
+  )}
+</DocsLayout>

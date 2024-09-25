@@ -8,14 +8,20 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import MainLayout from "./main-layout.astro";
 
-type Props = CollectionEntry<"blog">;
+interface Props {
+  title: string;
+  date: Date;
+  post: CollectionEntry<'blog'>;
+  categories: { name: string; slug: string }[];
+  viewCount: number;
+  likeCount: number;
+  slug: string;
+}
 
-const slug = Astro.props.slug;
-const { title, description, date, updatedDate, cover, category } =
-  Astro.props.data;
+const { title, date, post, categories, viewCount, likeCount, slug } = Astro.props;
 ---
 
-<MainLayout title={title} description={description}>
+<MainLayout title={title} description={post.data.description}>
   <div class="relative container max-w-screen-md py-10">
     <button
       onclick="history.back()"
@@ -30,21 +36,24 @@ const { title, description, date, updatedDate, cover, category } =
     </button>
 
     <article class="prose dark:prose-invert max-w-none">
-      <a
-        href={`/blog/category/${category}`}
-        transition:name={`badge-cat-${slug}`}
-      >
-        <Badge radius="md" className="capitalize">
-          {category}
-        </Badge>
-      </a>
+      <div>
+        {categories.map((category) => (
+          <a
+            href={`/blog/category/${category.slug}`}
+            transition:name={`badge-cat-${slug}-${category.slug}`}
+          >
+            <Badge radius="md" className="capitalize mr-2">
+              {category.name}
+            </Badge>
+          </a>
+        ))}
+      </div>
       <Image
         class="rounded-xl overflow-hidden my-6"
         width={720}
         height={360}
-        src={cover}
+        src={post.data.cover || '/default-cover.jpg'}
         alt={title}
-        transition:name={`img-${slug}`}
       />
       <div class="flex items-center justify-between">
         <span
@@ -53,8 +62,8 @@ const { title, description, date, updatedDate, cover, category } =
         >
           {formatDate(date)}
           {
-            updatedDate && (
-              <span>- Last updated on {formatDate(updatedDate)}</span>
+            post.data.updatedDate && (
+              <span>- Last updated on {formatDate(post.data.updatedDate)}</span>
             )
           }
         </span>
@@ -62,7 +71,8 @@ const { title, description, date, updatedDate, cover, category } =
       <h1 class="font-heading text-4xl my-4" transition:name={`title-${slug}`}>
         {title}
       </h1>
-      <p>{description}</p>
+      <p>{post.data.description}</p>
+      <p>👁️ {viewCount} views | ❤️ {likeCount} likes</p>
       <hr class="my-6" />
       <slot />
     </article>

@@ -28,8 +28,8 @@ export default function ClerkAuth() {
         <UserButton
           appearance={{
             elements: {
-              avatarBox: "w-8 h-8",
-              userButtonAvatarBox: "w-8 h-8",
+              avatarBox: "w-8 h-8 rounded-full",
+              userButtonAvatarBox: "w-8 h-8 rounded-full",
             },
           }}
         />

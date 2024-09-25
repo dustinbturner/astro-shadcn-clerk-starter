@@ -1,28 +1,56 @@
 ---
+import { getEntry } from 'astro:content';
 import BlogPostLayout from '@/layouts/blog-post.astro';
-import { formatDate } from '@/utils/date';
 import { getPostBySlug, getCategoriesForPost, getViewCount, getLikeCount, addView } from '@/utils/db';
 
-export const prerender = false; // Set to true if you want to prerender
+export const prerender = false;
 
 const { slug } = Astro.params;
-const post = await getPostBySlug(slug as string);
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+const post = await getEntry('blog', slug);
 
 if (!post) {
   return Astro.redirect('/404');
 }
 
-const categories = await getCategoriesForPost(post.id);
-const viewCount = await getViewCount(post.id);
-const likeCount = await getLikeCount(post.id);
+const { Content } = await post.render();
 
-// Increment view count
-await addView(post.id);
+// Fetch dynamic data from Astro DB
+let dbPost, categories, viewCount, likeCount;
+
+try {
+  dbPost = await getPostBySlug(slug);
+  
+  if (dbPost) {
+    categories = await getCategoriesForPost(dbPost.id);
+    viewCount = await getViewCount(dbPost.id);
+    likeCount = await getLikeCount(dbPost.id);
+    
+    // Increment view count
+    await addView(dbPost.id);
+  }
+} catch (error) {
+  console.error('Error fetching dynamic data:', error);
+}
+
+// Use default values if DB fetch failed
+categories = categories || [{ name: post.data.category, slug: post.data.category }];
+viewCount = viewCount || 0;
+likeCount = likeCount || 0;
 ---
-<BlogPostLayout title={post.title} date={formatDate(post.createdAt)}>
-  <h1>{post.title}</h1>
-  <p>Posted on: {formatDate(post.createdAt)}</p>
-  <p>Categories: {categories.map(c => c.name).join(', ')}</p>
-  <p>👁️ {viewCount + 1} views | ❤️ {likeCount} likes</p>
-  <div set:html={post.content}></div>
+
+<BlogPostLayout 
+  title={post.data.title}
+  date={post.data.pubDate}
+  post={post}
+  categories={categories}
+  viewCount={viewCount}
+  likeCount={likeCount}
+  slug={slug}
+>
+  <Content />
 </BlogPostLayout>

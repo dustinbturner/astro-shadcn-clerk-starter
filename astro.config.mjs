@@ -51,4 +51,7 @@ export default defineConfig({
       noExternal: ["@clerk/clerk-react"],
     },
   },
+  // experimental: {
+  //   contentCollections: true,
+  // },
 });

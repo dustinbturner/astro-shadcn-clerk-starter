@@ -1,68 +1,50 @@
 import {
   db,
   eq,
-  and,
   Posts,
   Categories,
   PostCategories,
   Views,
   Likes,
-  sql,
 } from "astro:db";
 
-export async function getAllPosts() {
-  return db
-    .select()
-    .from(Posts)
-    .orderBy(sql`${Posts.createdAt} DESC`);
-}
-
 export async function getPostBySlug(slug: string) {
-  const post = await db
+  const posts = await db
     .select()
     .from(Posts)
-    .where(eq(Posts.slug, slug))
-    .limit(1)
-    .then((posts) => posts[0]);
-  return post || null;
+    .where(eq(Posts.columns.slug, slug));
+  return posts[0];
 }
 
 export async function getCategoriesForPost(postId: number) {
-  const postCategories = await db
+  const categories = await db
     .select()
     .from(PostCategories)
-    .innerJoin(Categories, eq(Categories.id, PostCategories.categoryId))
-    .where(eq(PostCategories.postId, postId));
+    .innerJoin(
+      Categories,
+      eq(Categories.columns.id, PostCategories.columns.categoryId)
+    )
+    .where(eq(PostCategories.columns.postId, postId));
 
-  return postCategories.map((pc) => pc.Categories);
+  return categories.map((c) => ({ name: c.name, slug: c.slug }));
 }
 
 export async function getViewCount(postId: number) {
   const result = await db
-    .select({ count: sql`COUNT(${Views.id})` })
+    .select({ count: db.fn.count() })
     .from(Views)
-    .where(eq(Views.postId, postId));
+    .where(eq(Views.columns.postId, postId));
   return Number(result[0].count);
 }
 
 export async function getLikeCount(postId: number) {
   const result = await db
-    .select({ count: sql`COUNT(${Likes.id})` })
+    .select({ count: db.fn.count() })
     .from(Likes)
-    .where(eq(Likes.postId, postId));
+    .where(eq(Likes.columns.postId, postId));
   return Number(result[0].count);
 }
 
 export async function addView(postId: number) {
   await db.insert(Views).values({ postId, viewedAt: new Date() });
-}
-
-export async function addLike(postId: number, userId: string) {
-  await db.insert(Likes).values({ postId, userId, likedAt: new Date() });
-}
-
-export async function removeLike(postId: number, userId: string) {
-  await db
-    .delete(Likes)
-    .where(and(eq(Likes.postId, postId), eq(Likes.userId, userId)));
 }

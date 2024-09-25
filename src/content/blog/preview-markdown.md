@@ -1,7 +1,7 @@
 ---
 title: "Preview Markdown"
 description: "Lorem ipsum dolor sit amet"
-pubDate: "Jul 11 2022"
+pubDate: "2022-07-08"
 cover: "/images/blog/placeholder-about.jpg"
 category: "markdown"
 ---

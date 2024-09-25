@@ -77,8 +77,8 @@ export const navMenuConfig: NavMenuConfig = {
           href: "/blog-db",
           description:
             "Blog built using Astro DB. With categories, views & likes.",
-          // image: "/images/examples/blog-db.jpg",
-          disabled: true,
+          image: "/images/examples/blog-db.jpg",
+          disabled: false,
         },
         {
           title: "Ecommerce",
@@ -90,9 +90,9 @@ export const navMenuConfig: NavMenuConfig = {
         {
           title: "Authentification",
           href: "/auth",
-          description: "Implement an authentification using Astro DB & Lucia",
-          // image: "/images/examples/auth.jpg",
-          disabled: true,
+          description: "Implement an authentification using Astro DB & Clerk",
+          image: "/images/examples/clerk.png",
+          disabled: false,
         },
       ],
     },

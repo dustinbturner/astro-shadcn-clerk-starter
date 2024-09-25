@@ -1,7 +1,7 @@
 ---
 title: "Pale Blue Dot"
 description: "Carl Sagan's reflection on our planet Earth"
-pubDate: "Sep 10 2023"
+pubDate: "2022-07-08"
 cover: "/images/blog/placeholder-4.jpg"
 category: "space"
 ---
