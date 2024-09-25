@@ -4,11 +4,11 @@ import BlogCard from "@/components/cards/blog-card.astro";
 import MainLayout from "@/layouts/main-layout.astro";
 import { capitalizer } from "@/lib/utils";
 import { getCollection } from "astro:content";
-
+import type { CollectionEntry } from "astro:content";
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog");
   const uniqueCategories = [
-    ...new Set(allPosts.map((post) => post.data.category).flat()),
+    ...new Set(allPosts.map((post: CollectionEntry<"blog">) => post.data.category).flat()),
   ];
 
   return uniqueCategories.map((category) => ({
@@ -17,15 +17,15 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.params;
-const posts = (await getCollection("blog", ({ data }) =>
+const posts = (await getCollection("blog", ({ data }: { data: CollectionEntry<"blog"> }) =>
   data.category.includes(category)
 )).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
 <MainLayout
-  title={`${capitalizer(category)} | Blog`}
+  title={`${capitalizer(category as string)} | Blog`}
   description={`All posts for ${category} category`}
 >
   <section class="container py-10">
@@ -34,7 +34,7 @@ const posts = (await getCollection("blog", ({ data }) =>
     <div
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-9 md:gap-y-16 lg:gap-x-8"
     >
-      {posts.map((post) => (
+      {posts.map((post: CollectionEntry<"blog">) => (
         <BlogCard post={post} category={post.data.category} url={`/blog/${post.slug}/`} />
       ))}
     </div>
