@@ -1,0 +1,69 @@
+---
+import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/utils/date";
+import { Image } from "astro:assets";
+
+interface Post {
+  slug: string;
+  coverImage: string;
+  category: string;
+  createdAt: Date;
+  title: string;
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+
+// Add this check
+if (!post) {
+  return <p>Error: Post data is missing</p>;
+}
+---
+
+<article class="group space-y-4">
+  <a
+    href={`/blog/${post.slug}/`}
+    class="flex h-52 group-hover:-translate-y-2 group-hover:shadow-xl transition duration-300"
+  >
+    <Image
+      loading="eager"
+      class="w-full h-full object-cover rounded-xl overflow-hidden"
+      width={720}
+      height={360}
+      src={post.coverImage} 
+      alt={`Cover image for ${post.title}`}
+      transition:name={`img-${post.slug}`}
+    />
+  </a>
+
+  <div class="flex items-center justify-between">
+    <!-- <a
+      href={`/blog/category/${post.category}`}
+      transition:name={`badge-cat-${post.slug}`}
+    >
+      <Badge client:load variant="default" radius="md" className="capitalize">
+        {post.category}
+      </Badge>
+    </a> -->
+    <span
+      class="font-medium text-muted-foreground"
+      transition:name={`date-${post.slug}`}
+    >
+      {formatDate(post.createdAt)}
+    </span>
+  </div>
+
+  <div>
+    <a href={`/blog/${post.slug}/`} class="group-hover:underline">
+      <h2
+        class="font-heading text-xl md:text-2xl leading-snug line-clamp-3"
+        transition:name={`title-${post.slug}`}
+      >
+        {post.title}
+      </h2>
+    </a>
+  </div>
+</article>

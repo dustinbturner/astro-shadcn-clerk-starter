@@ -1,0 +1,28 @@
+---
+import BlogPostLayout from '@/layouts/blog-post.astro';
+import { formatDate } from '@/utils/date';
+import { getPostBySlug, getCategoriesForPost, getViewCount, getLikeCount, addView } from '@/utils/db';
+
+export const prerender = false; // Set to true if you want to prerender
+
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug as string);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const categories = await getCategoriesForPost(post.id);
+const viewCount = await getViewCount(post.id);
+const likeCount = await getLikeCount(post.id);
+
+// Increment view count
+await addView(post.id);
+---
+<BlogPostLayout title={post.title} date={formatDate(post.createdAt)}>
+  <h1>{post.title}</h1>
+  <p>Posted on: {formatDate(post.createdAt)}</p>
+  <p>Categories: {categories.map(c => c.name).join(', ')}</p>
+  <p>👁️ {viewCount + 1} views | ❤️ {likeCount} likes</p>
+  <div set:html={post.content}></div>
+</BlogPostLayout>
