@@ -1,5 +1,4 @@
 ---
-import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { footerLinks, siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -51,12 +50,21 @@ const { className } = Astro.props;
       <p class="text-left text-sm text-muted-foreground">
         Built by{" "}
         <a
-          href={siteConfig.links.twitter}
+          href="https://x.com/miickasmt"
           target="_blank"
           rel="noreferrer"
           class="font-medium underline underline-offset-4"
         >
           mickasmt
+        </a>
+          Modified by{" "}
+        <a
+          href={siteConfig.links.twitter}
+          target="_blank"
+          rel="noreferrer"
+          class="font-medium underline underline-offset-4"
+        >
+          dustinbturner
         </a>
         . Hosted on{" "}
         <a
