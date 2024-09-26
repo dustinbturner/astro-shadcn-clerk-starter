@@ -19,29 +19,30 @@ type Props = {
 };
 
 const { title, description, mainClass } = Astro.props;
+const clerkPublishableKey = import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+// Log the key (remove this in production)
+console.log("Clerk Publishable Key in layout:", clerkPublishableKey);
+console.log("Key length:", clerkPublishableKey?.length);
+console.log("Key prefix:", clerkPublishableKey?.substring(0, 8));
 ---
 
 <BaseLayout title={title} description={description}>
   <Header className="border-b">
-    <!-- if using only normals links  -->
-    <!-- <MainNav items={marketingConfig.mainNav} slot="left-header" />
-    <SheetMobileNav
-      mainNavItems={marketingConfig.mainNav}
-      slot="mobile-nav-header"
-      client:load
-    /> -->
-
-    <!-- if use Navigation Menu on desktop -->
-    <MainNavigationMenu slot="left-header" client:load />
-    <SheetMobileNav
-      mainNavItems={[...navMenuConfig.links]}
-      sidebarNavItems={[
-        ...navMenuConfig.pagesNav,
-        ...navMenuConfig.examplesNav,
-      ]}
-      slot="mobile-nav-header"
-      client:load
-    />
+    {clerkPublishableKey && (
+      <>
+        <MainNavigationMenu slot="left-header" client:load />
+        <SheetMobileNav
+          mainNavItems={[...navMenuConfig.links]}
+          sidebarNavItems={[
+            ...navMenuConfig.pagesNav,
+            ...navMenuConfig.examplesNav,
+          ]}
+          slot="mobile-nav-header"
+          client:load
+        />
+      </>
+    )}
 
     <div class="flex items-center gap-x-4" slot="right-header">
       <a
@@ -56,9 +57,7 @@ const { title, description, mainClass } = Astro.props;
     </div>
   </Header>
 
-  <main class={cn(mainClass)}>
-    <slot />
-  </main>
+  <slot />
 
   <Footer />
 </BaseLayout>

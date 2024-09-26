@@ -1,19 +1,19 @@
-# Astronomy
+# Astro-Clerk
 
-An open source application built using the latest features in Astro v4 with shadcn/ui.
+An open source application built using the latest features in Astro v4 with shadcn/ui and Clerk for authentication.
 
-![blog](public/og.jpg)
+![astro-clerk](public/og.jpg)
 
 > **Warning**
-> This app is a work in progress. I'm building this in public. You can follow the progress on Twitter [@miickasmt](https://twitter.com/miickasmt).
+> This app is a work in progress. I'm building this in public. You can follow the progress on Twitter [@yourtwitterhandle](https://twitter.com/yourtwitterhandle).
 > See the roadmap below.
 
 ## About this project
 
-This project as an experiment to see how a modern app (with features like authentication, subscriptions, API routes, Markdown, Content Collections ...etc) would work in Astro v4 and shadcn/ui.
+This project is an experiment to see how a modern app (with features like authentication, subscriptions, API routes, Markdown, Content Collections, etc.) would work in Astro v4 with shadcn/ui and Clerk for authentication.
 
 > **Note**
-> I would like to inform you that for the time being, my example app built with Astro.js is still under development and **cannot yet be considered a starter template**.
+> Please note that Astro-Clerk is still under development and **cannot yet be considered a starter template**.
 
 ## Project Structure
 
@@ -69,9 +69,10 @@ _Not implemented yet :_
 - [x] ~Build **changelog pages**~
 - [x] ~Build **waitlist with React Hook Form**~
 - [x] ~Build **newsletter with Simple Form**~
-- [ ] Build **blog with Astro DB** (work on it)
-- [ ] Build **ecommerce pages** (work on it)
-- [ ] Build **auth/dashboard pages**
+- [x] ~Build **Clerk Authentication**~
+- [x] ~Build **Supabase Configuration**~ (Unsure what to do with it yet)
+- [ ] Build **ecommerce pages** (planned for later)
+- [ ] Build **auth/dashboard pages** (planned for later)
 - [ ] Add search support for blog
 - [ ] Add OG image for blog and others
 - [ ] Add SEO component & metadata

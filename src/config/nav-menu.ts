@@ -18,11 +18,11 @@ export const navMenuConfig: NavMenuConfig = {
           image: "/images/examples/changelog.jpg",
         },
         {
-          title: "Waitlist",
-          href: "/waitlist",
+          title: "Newsletter",
+          href: "/newsletter",
           description:
-            "A waitlist form using Astro DB, React Hook Form & Sonner. Static page.",
-          image: "/images/examples/waitlist.jpg",
+            "A newsletter form using Astro DB & Simple Stack Form. Counter display!",
+          image: "/images/examples/newsletter.jpg",
           forceReload: true,
         },
         {
@@ -36,13 +36,6 @@ export const navMenuConfig: NavMenuConfig = {
           href: "/about",
           description: "A simple page with a masonry gallery and little text.",
           image: "/images/examples/about.jpg",
-        },
-        {
-          title: "Newsletter",
-          href: "/newsletter",
-          description:
-            "A newsletter form using Astro DB & Simple Stack Form. Counter display!",
-          image: "/images/examples/newsletter.jpg",
         },
       ],
     },
@@ -69,14 +62,14 @@ export const navMenuConfig: NavMenuConfig = {
           href: "/guides",
           description:
             "A Markdown/MDX guides site built using Content Collections.",
-          image: "/images/examples/documentation.jpg",
+          image: "/images/examples/guides.jpg",
         },
         {
-          title: "Blog DB",
+          title: "Supabase DB",
           href: "#",
           description:
-            "Blog built using Astro DB. With categories, views & likes.",
-          image: "/images/examples/blog-db.jpg",
+            "Supabase DB configuration. Unsure what to put here yet.",
+          image: "/images/examples/supabase.jpg",
           disabled: false,
         },
         {

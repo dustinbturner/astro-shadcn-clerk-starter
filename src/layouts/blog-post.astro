@@ -12,13 +12,12 @@ interface Props {
   title: string;
   date: Date;
   post: CollectionEntry<'blog'>;
-  categories: { name: string; slug: string }[];
-  viewCount: number;
-  likeCount: number;
+
+
   slug: string;
 }
 
-const { title, date, post, categories, viewCount, likeCount, slug } = Astro.props;
+const { title, date, post, slug } = Astro.props;
 ---
 
 <MainLayout title={title} description={post.data.description}>
@@ -36,8 +35,8 @@ const { title, date, post, categories, viewCount, likeCount, slug } = Astro.prop
     </button>
 
     <article class="prose dark:prose-invert max-w-none">
-      <div>
-        {categories.map((category) => (
+      <!-- <div>
+        {post.data.categories.map((category) => (
           <a
             href={`/blog/category/${category.slug}`}
             transition:name={`badge-cat-${slug}-${category.slug}`}
@@ -47,7 +46,7 @@ const { title, date, post, categories, viewCount, likeCount, slug } = Astro.prop
             </Badge>
           </a>
         ))}
-      </div>
+      </div> -->
       <Image
         class="rounded-xl overflow-hidden my-6"
         width={720}
@@ -71,8 +70,7 @@ const { title, date, post, categories, viewCount, likeCount, slug } = Astro.prop
       <h1 class="font-heading text-4xl my-4" transition:name={`title-${slug}`}>
         {title}
       </h1>
-      <p>{post.data.description}</p>
-      <p>👁️ {viewCount} views | ❤️ {likeCount} likes</p>
+
       <hr class="my-6" />
       <slot />
     </article>

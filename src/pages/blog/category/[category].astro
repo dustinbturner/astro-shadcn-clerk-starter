@@ -17,8 +17,8 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.params;
-const posts = (await getCollection("blog", ({ data }: { data: CollectionEntry<"blog"> }) =>
-  data.category.includes(category)
+const posts = (await getCollection("blog", ({ data }: { data: CollectionEntry<"blog">["data"] }) =>
+  data.category === category
 )).sort(
   (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
